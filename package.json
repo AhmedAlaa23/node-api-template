@@ -1,0 +1,41 @@
+{
+  "name": "node-api-template",
+  "version": "0.0.1",
+  "description": "Node API Template",
+  "main": "./app/app.js",
+  "scripts": {
+		"start": "nodemon ./app/app.js",
+		"test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
+  },
+	"dependencies": {
+    "dotenv": "^8.2.0",
+    "levity-mysql": "^0.10.3",
+    "levity-server": "^0.4.2",
+    "levity-validator": "^0.6.4"
+  },
+  "devDependencies": {
+    "jest": "^27.0.3",
+    "gulp": "^4.0.2",
+    "faker": "^4.1.0",
+    "node-fetch": "^2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedAlaa23/node-api-template.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AhmedAlaa23/node-api-template/issues"
+  },
+  "homepage": "https://github.com/AhmedAlaa23/node-api-template#readme",
+	"type": "module",
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testTimeout": 100000,
+    "verbose": true,
+    "bail": 1,
+    "globalSetup": "./tests/tests-setup.cjs"
+  }
+}

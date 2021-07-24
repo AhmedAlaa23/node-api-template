@@ -1,0 +1,36 @@
+
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  Deploy:
+    runs-on: [self-hosted, deploy]
+
+    steps:
+    - name: Checkout - Copying the Repo to the Server
+      uses: actions/checkout@v2
+    
+    - name: Create .env file
+      run: |
+          touch .env
+          echo NODE_ENV="prod" >> .env
+          echo TZ="UTC" >> .env
+          echo PROD_PORT=${{ secrets.PROD_PORT }} >> .env
+          echo DEV_PORT=${{ secrets.DEV_PORT }} >> .env
+          echo TEST_PORT=${{ secrets.DEV_PORT }} >> .env
+          echo PROD_DB_HOST=${{ secrets.PROD_DB_HOST }} >> .env
+          echo PROD_DB_USER=${{ secrets.PROD_DB_USER }} >> .env
+          echo PROD_DB_PASS=${{ secrets.PROD_DB_PASS }} >> .env
+          echo PROD_DB_NAME=${{ secrets.PROD_DB_NAME }} >> .env
+          echo ACCESS_TOK_SECRET=${{ secrets.ACCESS_TOK_SECRET }} >> .env
+          cat .env
+    
+    - name: NPM Install
+      run: npm i
+      
+    - name: PM2 Restart
+      run: NODE_ENV=prod pm2 startOrReload ecosystem.config.cjs
+
